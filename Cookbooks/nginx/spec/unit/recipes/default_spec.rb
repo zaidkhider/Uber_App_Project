@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe 'nginx::default' do
   context 'When all attributes are default, on Ubuntu 18.04' do
-    
+
     platform 'ubuntu', '18.04'
 
     it 'converges successfully' do
@@ -28,6 +28,10 @@ describe 'nginx::default' do
 
     it 'should create a symlink of proxy.conf from sites-available to sites-enabled' do
       expect(chef_run).to create_link('/etc/nginx/sites-enabled/proxy.conf').with_link_type(:symbolic)
+    end
+
+    it 'should delete a symlink of proxy.conf from the default config in sites-enabled' do
+      expect(chef_run).to delete_link('/etc/nginx/sites-enabled/default')
     end
 
     it 'runs apt get update' do
