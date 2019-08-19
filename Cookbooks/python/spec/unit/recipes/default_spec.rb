@@ -28,5 +28,8 @@ describe 'python::default' do
       expect(chef_run).to install_package 'libncurses5-dev'
       expect(chef_run).to install_package 'libffi-dev'
     end
+    it 'should install the plugin' do
+      expect(chef_run).to run_execute 'pip install Flask==0.10.1'
+    end
   end
 end
